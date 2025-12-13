@@ -17,6 +17,14 @@ export const createRoom = async (name: string, capacity: number): Promise<Room> 
 	return { id: result.insertId, name, capacity, created_at: new Date().toISOString() }
 }
 
-export const daleteRoom = async (id: number): Promise<void> => {
-	await pool.query("DELETE FROM room WHERE id = ?", [id]);
+export const updateRoom = async (id: number, name: string, capacity: number): Promise<Room | null> => {
+	await pool.query("UPDATE rooms SET name = ?, capacity = ? WHERE id = ?",
+		[name, capacity, id]
+	);
+
+	return getRoomById(id);
+}
+
+export const deleteRoom = async (id: number): Promise<void> => {
+	await pool.query("DELETE FROMrooms WHERE id= ?", [id]);
 }

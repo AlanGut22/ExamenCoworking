@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const createBookingSchema = z.object({
-	userId: z.number().int().positive(),
-	roomId: z.number().int().positive(),
+	user_id: z.number().int().positive("Usuario inválido"),
+	room_id: z.number().int().positive("Sala inválida"),
 	date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Formato de fecha inválido (YYYY-MM-DD)"),
-	startTime: z.string().regex(/^\d{2}:\d{2}$/, "Formato inválido (HH:mm)"),
-	endTime: z.string().regex(/^\d{2}:\d{2}$/, "Formato inválido (HH:mm)")
+	start_time: z.string().regex(/^\d{2}:\d{2}$/, "Formato inválido (HH:mm)"),
+	end_time: z.string().regex(/^\d{2}:\d{2}$/, "Formato inválido (HH:mm)")
 });
