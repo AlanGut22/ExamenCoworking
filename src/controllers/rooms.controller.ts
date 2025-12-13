@@ -6,7 +6,6 @@ export const getAllRooms = async (req: Request, res: Response, next: NextFunctio
 	try {
 		const rooms: Room[] = await service.getAllRooms();
 		res.json(rooms)
-		res
 	} catch (err) {
 		next(err);
 	}
@@ -17,9 +16,12 @@ export const getRoomById = async (req: Request, res: Response, next: NextFunctio
 		const id = Number(req.params.id);
 		const room: Room | null = await service.getRoomById(id);
 
-		if (room) {
+		if (!room) {
 			return next({ status: 404, message: "Sala no encontrada" })
 		}
+
+		res.json(room);
+
 	} catch (err) {
 		next(err);
 	}

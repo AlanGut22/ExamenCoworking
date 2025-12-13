@@ -26,5 +26,5 @@ export const updateRoom = async (id: number, name: string, capacity: number): Pr
 }
 
 export const deleteRoom = async (id: number): Promise<void> => {
-	await pool.query("DELETE FROMrooms WHERE id= ?", [id]);
+	await pool.query("DELETE FROM rooms WHERE id= ?", [id]);
 }
