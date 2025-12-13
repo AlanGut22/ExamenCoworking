@@ -1,0 +1,35 @@
+import dotenv from "dotenv";
+dotenv.config()
+import usersRoutes from "./routes/users.routes"
+// import roomsRoutes from "./routes/rooms.routes"
+// import bookingsRoutes from "./routes/bookings.routes"
+import express from "express";
+import pool from "./config/db";
+import { logger } from "./middlewares/logger.middleware";
+import { errorHandler } from "./middlewares/error.middleware";
+
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json())
+app.use(logger)
+
+app.use("/users", usersRoutes)
+
+app.use(errorHandler)
+
+pool.getConnection()
+    .then(connection => {
+        console.log("Conexión exitosa a MySQL");
+        connection.release();
+
+        // Si se conectó → iniciar servidor
+        app.listen(PORT, () => {
+            console.log(`Servidor iniciado correctamente en http://localhost:${process.env.PORT}`);
+        });
+    })
+    .catch(err => {
+        console.error("Error al conectar con MySQL:", err);
+        console.log("El servidor NO se iniciará hasta que la base de datos funcione.");
+    });
