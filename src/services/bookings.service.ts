@@ -1,9 +1,10 @@
 import pool from "../config/db";
 import { Booking } from "../models/booking.model";
+import { formatDate } from "../utils/data.utils";
 
 export const getAllBookings = async (): Promise<Booking[]> => {
 	const [booking] = await pool.query("SELECT * FROM bookings");
-	return (booking as Booking[])
+	return (booking as Booking[]).map(b => ({ ...b, date: formatDate(b.date) }));
 }
 
 export const getBookingById = async (id: number): Promise<Booking | null> => {
@@ -14,16 +15,10 @@ export const getBookingById = async (id: number): Promise<Booking | null> => {
 export const getBookingsByRoomId = async (roomId: number): Promise<Booking[]> => {
 	const [booking] = await pool.query("SELECT * FROM bookings WHERE room_id = ?", [roomId]);
 
-	return booking as Booking[];
+	return (booking as Booking[]).map(b => ({ ...b, date: formatDate(b.date) }));
 }
 
-export const createBooking = async (
-	userId: number,
-	roomId: number,
-	date: string,
-	startTime: string,
-	endTime: string
-): Promise<Booking> => {
+export const createBooking = async (userId: number, roomId: number, date: string, startTime: string, endTime: string): Promise<Booking> => {
 
 	if (endTime <= startTime) {
 		throw { status: 400, message: "La hora de fin debe ser mayor a la hora de inicio" };
