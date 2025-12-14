@@ -27,7 +27,7 @@ export const getBookingById = async (req: Request, res: Response, next: NextFunc
 	}
 }
 
-export const getBookingsByRoom = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getBookingsByRoomId = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 	try {
 		const roomId = Number(req.params.id);
 		const bookings = await service.getBookingsByRoomId(roomId);

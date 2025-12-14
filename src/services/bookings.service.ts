@@ -13,9 +13,15 @@ export const getBookingById = async (id: number): Promise<Booking | null> => {
 }
 
 export const getBookingsByRoomId = async (roomId: number): Promise<Booking[]> => {
-	const [booking] = await pool.query("SELECT * FROM bookings WHERE room_id = ?", [roomId]);
+	const [room]: any = await pool.query("SELECT id FROM rooms WHERE id = ?", [roomId]);
 
-	return (booking as Booking[]).map(b => ({ ...b, date: formatDate(b.date) }));
+	if (room.length === 0) {
+		throw { status: 404, message: "La sala no existe" };
+	}
+
+	const [bookings] = await pool.query("SELECT * FROM bookings WHERE room_id = ?", [roomId]);
+
+	return (bookings as Booking[]).map(b => ({ ...b, date: formatDate(b.date) }));
 }
 
 export const createBooking = async (userId: number, roomId: number, date: string, startTime: string, endTime: string): Promise<Booking> => {

@@ -6,7 +6,7 @@ import { createBookingSchema } from "../schemas/booking.schema";
 const router = Router();
 
 router.get("/", Booking.getAllBookings);
-router.get("/room/:id", Booking.getBookingsByRoom);
+router.get("/room/:id", Booking.getBookingsByRoomId);
 router.get("/:id", Booking.getBookingById);
 router.post("/", validateRequest(createBookingSchema), Booking.createBooking);
 router.delete("/:id", Booking.deleteBooking);

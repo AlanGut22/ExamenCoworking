@@ -28,7 +28,6 @@ pool.getConnection()
         console.log("Conexión exitosa a MySQL");
         connection.release();
 
-        // Si se conectó → iniciar servidor
         app.listen(PORT, () => {
             console.log(`Servidor iniciado correctamente en http://localhost:${process.env.PORT}`);
         });
