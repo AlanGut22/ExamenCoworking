@@ -1,4 +1,4 @@
-import pool from "../config/db";
+import { pool } from "../config/db";
 import { Booking } from "../models/booking.model";
 import { formatDate } from "../utils/data.utils";
 

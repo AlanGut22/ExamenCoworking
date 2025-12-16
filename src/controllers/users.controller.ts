@@ -13,7 +13,7 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction):
 
 export const getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const id = parseInt(req.params.id);
         const user: User | null = await service.getUserById(id);
 
         if (!user) {
@@ -38,7 +38,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
 export const updateUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const id = parseInt(req.params.id);
         const { name, email } = req.body;
 
         const updated: User | null = await service.updateUser(id, name, email);
@@ -55,7 +55,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
 export const deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const id = parseInt(req.params.id);
         await service.deleteUser(id);
         res.status(204).send();
     } catch (err) {

@@ -1,4 +1,4 @@
-import pool from "../config/db";
+import { pool } from "../config/db";
 import { Room } from "../models/room.model";
 
 export const getAllRooms = async (): Promise<Room[]> => {

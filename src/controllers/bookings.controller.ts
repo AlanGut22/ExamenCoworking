@@ -13,7 +13,7 @@ export const getAllBookings = async (req: Request, res: Response, next: NextFunc
 
 export const getBookingById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 	try {
-		const id = Number(req.params.id);
+		const id = parseInt(req.params.id);
 		const booking: Booking | null = await service.getBookingById(id);
 
 		if (!booking) {
@@ -29,7 +29,7 @@ export const getBookingById = async (req: Request, res: Response, next: NextFunc
 
 export const getBookingsByRoomId = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 	try {
-		const roomId = Number(req.params.id);
+		const roomId = parseInt(req.params.id);
 		const bookings = await service.getBookingsByRoomId(roomId);
 		res.json(bookings);
 	} catch (err) {
@@ -51,7 +51,7 @@ export const createBooking = async (req: Request, res: Response, next: NextFunct
 
 export const deleteBooking = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 	try {
-		const id = Number(req.params.id);
+		const id = parseInt(req.params.id);
 		await service.deleteBooking(id);
 		res.status(204).send();
 	} catch (err) {

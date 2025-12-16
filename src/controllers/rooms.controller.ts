@@ -13,7 +13,7 @@ export const getAllRooms = async (req: Request, res: Response, next: NextFunctio
 
 export const getRoomById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 	try {
-		const id = Number(req.params.id);
+		const id = parseInt(req.params.id);
 		const room: Room | null = await service.getRoomById(id);
 
 		if (!room) {
@@ -42,7 +42,7 @@ export const createRoom = async (req: Request, res: Response, next: NextFunction
 
 export const updateRoom = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 	try {
-		const id = Number(req.params.id);
+		const id = parseInt(req.params.id);
 		const { name, capacity } = req.body;
 
 		const updated: Room | null = await service.updateRoom(id, name, capacity);
@@ -61,7 +61,7 @@ export const updateRoom = async (req: Request, res: Response, next: NextFunction
 export const deleteRoom = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
 	try {
-		const id = Number(req.params.id);
+		const id = parseInt(req.params.id);
 		await service.deleteRoom(id);
 		res.status(204).send();
 	} catch (err) {
