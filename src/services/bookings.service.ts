@@ -9,7 +9,7 @@ export const getAllBookings = async (): Promise<Booking[]> => {
 
 export const getBookingById = async (id: number): Promise<Booking | null> => {
 	const [booking] = await pool.query("SELECT * FROM bookings WHERE id = ?", [id]);
-	return (booking as Booking[])[0] || null;
+	return (booking as Booking[]).map(b => ({ ...b, date: formatDate(b.date) }))[0] || null;
 }
 
 export const getBookingsByRoomId = async (roomId: number): Promise<Booking[]> => {
